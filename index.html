@@ -7,7 +7,9 @@
     <title>goit-advancedjs-hw-04</title>
     
     <script type="module" crossorigin src="/goit-advancedjs-hw-04/commonHelpers.js"></script>
-    <link rel="stylesheet" href="/goit-advancedjs-hw-04/assets/index-c0fbf56a.css">
+    <link rel="modulepreload" crossorigin href="/goit-advancedjs-hw-04/assets/vendor-7ef20b6d.js">
+    <link rel="stylesheet" href="/goit-advancedjs-hw-04/assets/vendor-8c8fa3ea.css">
+    <link rel="stylesheet" href="/goit-advancedjs-hw-04/assets/index-55f0c96c.css">
   </head>
   <body>
     <!-- ENOENT: no such file or directory, open '/home/runner/work/goit-advancedjs-hw-04/goit-advancedjs-hw-04/src/partials/header.html' -->
@@ -17,7 +19,13 @@
 
     <header class="header">
       <form class="search">
-        <input class="search__field" type="text" name="search" />
+        <input
+          class="search__field"
+          type="text"
+          name="searchQuery"
+          autocomplete="off"
+          placeholder="Search images..."
+        />
         <button class="search__submit-btn" type="submit" aria-label="Search">
           <img
             class="search__icon"
@@ -29,6 +37,8 @@
         </button>
       </form>
     </header>
+
+    <div class="gallery"></div>
 
     
   </body>
