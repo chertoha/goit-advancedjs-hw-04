@@ -15,7 +15,13 @@
 
     <header class="header">
       <form class="search">
-        <input class="search__field" type="text" name="search" />
+        <input
+          class="search__field"
+          type="text"
+          name="searchQuery"
+          autocomplete="off"
+          placeholder="Search images..."
+        />
         <button class="search__submit-btn" type="submit" aria-label="Search">
           <img
             class="search__icon"
@@ -27,6 +33,8 @@
         </button>
       </form>
     </header>
+
+    <div class="gallery"></div>
 
     <script type="module" src="/main.js"></script>
   </body>
