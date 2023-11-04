@@ -1,0 +1,6 @@
+.header {
+  padding: 15px;
+  background-color: rgb(110, 103, 204);
+  display: flex;
+  justify-content: center;
+}
