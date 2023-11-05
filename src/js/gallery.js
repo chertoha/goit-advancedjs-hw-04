@@ -2,27 +2,23 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { fetchImages } from './pixabayAPI';
 
-const lightbox = new SimpleLightbox('.gallery a', {
-  // captions: true,
-  // captionsData: 'alt',
-  // captionDelay: 250,
-  showCounter: false,
-});
-
 const form = document.querySelector('.search');
 const gallery = document.querySelector('.gallery');
+
+const lightbox = new SimpleLightbox('.gallery a', {
+  showCounter: false,
+});
 
 form.addEventListener('submit', e => {
   e.preventDefault();
 
   const query = e.target.elements.searchQuery.value.trim();
 
-  //   console.log('query', query);
-
   fetchImages(query)
     .then(data => {
       console.log('', data);
       createGAlleryMarkup(data.hits);
+      lightbox.refresh();
     })
     .catch(err => {
       console.log(err);
