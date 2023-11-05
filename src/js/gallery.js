@@ -3,9 +3,9 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import { fetchImages } from './pixabayAPI';
 
 const lightbox = new SimpleLightbox('.gallery a', {
-  //   captions: true,
-  //   captionsData: 'alt',
-  //   captionDelay: 250,
+  // captions: true,
+  // captionsData: 'alt',
+  // captionDelay: 250,
   showCounter: false,
 });
 
@@ -39,16 +39,16 @@ function createGAlleryMarkup(list) {
 function createGalleryMarkup({
   largeImageURL,
   tags,
-  previewURL,
   likes,
   views,
   comments,
   downloads,
+  webformatURL,
 }) {
   return `
   <div class="photo-card">
-    <a class="gallery__link" href="${largeImageURL}">
-        <img clasas="gallery__img" src="${previewURL}" alt="${tags}" loading="lazy" />
+    <a class="photo-card__link" href="${largeImageURL}">
+        <img class="photo-card__img" src="${webformatURL}" alt="${tags}" loading="lazy" />
     </a>
     
     <div class="info">
@@ -65,13 +65,5 @@ function createGalleryMarkup({
             <b>Downloads <span>${downloads}</span></b>
         </p>
     </div>
-</div`;
-
-  //   return `
-  //     <li class="gallery__item">
-  //   <a class="gallery__link" href="${original}">
-  //       <img class="gallery__image" src="${preview}" alt="${alt}" />
-  //   </a>
-  //     </li>
-  // `;
+</div>`;
 }
