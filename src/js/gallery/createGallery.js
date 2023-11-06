@@ -2,12 +2,12 @@ import { fetchImages } from '../pixabayAPI';
 import { toast } from '../toast';
 
 export function createGallery(
-  procedure,
+  render,
   {
     initialPage,
-    limit,
     initialQuery,
     initialList,
+    limit,
     loader,
     smoothScroll,
     loadMore,
@@ -42,7 +42,7 @@ export function createGallery(
         toast.foundTotal(total);
       }
 
-      procedure(list);
+      render(list);
 
       if (!isEndCollection) loadMore.show();
 
@@ -66,7 +66,7 @@ export function createGallery(
     },
 
     resetPage() {
-      page = initialPage || 1;
+      page = 1;
     },
 
     setQuery(newQuery) {
