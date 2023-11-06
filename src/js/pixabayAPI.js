@@ -8,5 +8,7 @@ export const fetchImages = async (query, page = 1, limit = 20) => {
       per_page: limit,
     },
   });
-  return response.data;
+
+  const { hits, totalHits } = response.data;
+  return { list: hits, total: totalHits };
 };

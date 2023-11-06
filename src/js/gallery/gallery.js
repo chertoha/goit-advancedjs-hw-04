@@ -1,8 +1,7 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { PER_PAGE } from '../config';
-import { createGalleryState } from '../createGalleryState';
-import { fetchImages } from '../pixabayAPI';
+import { createGallery } from './createGallery';
 import { createGAlleryMarkup } from './gallery-markup';
 
 const form = document.querySelector('.search');
@@ -13,8 +12,10 @@ const lightbox = new SimpleLightbox('.gallery a', {
   showCounter: false,
 });
 
-const galleryIstance = createGalleryState(render, {
+const galleryIstance = createGallery(render, {
   limit: PER_PAGE,
+  loader: createloader(),
+  smoothScroll,
 });
 
 form.addEventListener('submit', e => {
@@ -34,4 +35,30 @@ function render(data) {
   gallery.innerHTML = '';
   gallery.insertAdjacentHTML('beforeend', markup);
   lightbox.refresh();
+}
+
+function createloader() {
+  const loaderRef = document.querySelector('.loader');
+  loaderRef.style.display = 'none';
+
+  return {
+    start() {
+      loaderRef.style.display = 'block';
+    },
+
+    stop() {
+      loaderRef.style.display = 'none';
+    },
+  };
+}
+
+function smoothScroll() {
+  const { height: cardHeight } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
 }
