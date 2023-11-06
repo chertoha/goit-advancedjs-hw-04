@@ -1,5 +1,6 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+import { PER_PAGE } from '../config';
 import { fetchImages } from '../pixabayAPI';
 import { createGAlleryMarkup } from './gallery-markup';
 
@@ -10,12 +11,14 @@ const lightbox = new SimpleLightbox('.gallery a', {
   showCounter: false,
 });
 
+const pageState = createPageState();
+
 form.addEventListener('submit', e => {
   e.preventDefault();
 
   const query = e.target.elements.searchQuery.value.trim();
 
-  fetchImages('cat')
+  fetchImages('cat', pageState.getPage(), PER_PAGE)
     .then(data => {
       console.log('', data);
       const markup = createGAlleryMarkup(data.hits);
@@ -28,3 +31,21 @@ form.addEventListener('submit', e => {
 });
 
 //----------------------------Helpers
+
+function createPageState(initial = 1) {
+  let page = initial;
+
+  return {
+    getPage() {
+      return page;
+    },
+
+    increasePage() {
+      page += 1;
+    },
+
+    resetPage() {
+      page = 1;
+    },
+  };
+}
