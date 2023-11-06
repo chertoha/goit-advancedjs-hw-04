@@ -3,18 +3,26 @@ import { toast } from '../toast';
 
 export function createGallery(
   procedure,
-  { initialPage, limit, initialQuery, initialList, loader, smoothScroll }
+  {
+    initialPage,
+    limit,
+    initialQuery,
+    initialList,
+    loader,
+    smoothScroll,
+    loadMore,
+  }
 ) {
   let page = initialPage || 1;
   let query = initialQuery || '';
   let list = initialList || [];
   let total = null;
-  const loaderInstance = loader || null;
 
   async function fetchData() {
     if (!query) return;
     try {
-      loaderInstance && loaderInstance.start();
+      loader && loader.start();
+      loadMore.hide();
 
       const data = await fetchImages(query, page, limit);
 
@@ -23,24 +31,25 @@ export function createGallery(
       list.push(...data.list);
       total = data.total;
 
-      console.log('page', page);
+      const isEndCollection = limit * page >= total;
 
       if (data.list.length === 0) {
         toast.emptyList();
-      } else if (limit * page >= total) {
+      } else if (isEndCollection) {
         toast.endCollection();
-      } else {
+      } else if (page === 1) {
         toast.foundTotal(total);
       }
 
       procedure(list);
 
+      if (!isEndCollection) loadMore.show();
+
       smoothScroll && smoothScroll();
     } catch (error) {
-      console.log('error', error);
       toast.fetchError();
     } finally {
-      loaderInstance && loaderInstance.stop();
+      loader && loader.stop();
     }
   }
 

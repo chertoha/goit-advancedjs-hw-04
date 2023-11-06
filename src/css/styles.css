@@ -1,7 +1,9 @@
 @import url('./reset.css');
+@import url('./loader.css');
 @import url('./header.css');
 @import url('./search.css');
 @import url('./gallery.css');
+@import url('./load-more.css');
 
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
@@ -24,5 +26,6 @@
 }
 
 body {
+  padding-top: 60px;
   padding-bottom: 200px;
 }

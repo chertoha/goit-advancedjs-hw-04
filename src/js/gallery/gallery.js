@@ -16,6 +16,7 @@ const galleryIstance = createGallery(render, {
   limit: PER_PAGE,
   loader: createloader(),
   smoothScroll,
+  loadMore: createLoadMore(),
 });
 
 form.addEventListener('submit', e => {
@@ -61,4 +62,17 @@ function smoothScroll() {
     top: cardHeight * 2,
     behavior: 'smooth',
   });
+}
+
+function createLoadMore() {
+  loadMoreBtn.style.display = 'none';
+
+  return {
+    show() {
+      loadMoreBtn.style.display = 'block';
+    },
+    hide() {
+      loadMoreBtn.style.display = 'none';
+    },
+  };
 }
