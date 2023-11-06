@@ -7,6 +7,7 @@ import { createGAlleryMarkup } from './gallery-markup';
 const form = document.querySelector('.search');
 const gallery = document.querySelector('.gallery');
 const loadMoreBtn = document.querySelector('.load-more');
+const loaderRef = document.querySelector('.loader');
 
 const lightbox = new SimpleLightbox('.gallery a', {
   showCounter: false,
@@ -14,9 +15,9 @@ const lightbox = new SimpleLightbox('.gallery a', {
 
 const galleryIstance = createGallery(render, {
   limit: PER_PAGE,
-  loader: createloader(),
+  loader: createHideable(loaderRef),
   smoothScroll,
-  loadMore: createLoadMore(),
+  loadMore: createHideable(loadMoreBtn),
 });
 
 form.addEventListener('submit', e => {
@@ -30,27 +31,13 @@ loadMoreBtn.addEventListener('click', () => {
   galleryIstance.increasePage();
 });
 
-//----------------------------Helpers
+//-------------------------------------------------Helpers
+
 function render(data) {
   const markup = createGAlleryMarkup(data);
   gallery.innerHTML = '';
   gallery.insertAdjacentHTML('beforeend', markup);
   lightbox.refresh();
-}
-
-function createloader() {
-  const loaderRef = document.querySelector('.loader');
-  loaderRef.style.display = 'none';
-
-  return {
-    start() {
-      loaderRef.style.display = 'block';
-    },
-
-    stop() {
-      loaderRef.style.display = 'none';
-    },
-  };
 }
 
 function smoothScroll() {
@@ -64,15 +51,13 @@ function smoothScroll() {
   });
 }
 
-function createLoadMore() {
-  loadMoreBtn.style.display = 'none';
-
+function createHideable(instance) {
   return {
     show() {
-      loadMoreBtn.style.display = 'block';
+      instance.classList.add('visible');
     },
     hide() {
-      loadMoreBtn.style.display = 'none';
+      instance.classList.remove('visible');
     },
   };
 }

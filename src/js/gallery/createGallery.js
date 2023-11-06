@@ -21,19 +21,20 @@ export function createGallery(
   async function fetchData() {
     if (!query) return;
     try {
-      loader && loader.start();
+      loader && loader.show();
       loadMore.hide();
 
       const data = await fetchImages(query, page, limit);
 
-      console.log('data', data);
+      // console.log('data', data);
 
       list.push(...data.list);
       total = data.total;
 
       const isEndCollection = limit * page >= total;
+      const isCollectionEmpty = data.list.length === 0;
 
-      if (data.list.length === 0) {
+      if (isCollectionEmpty) {
         toast.emptyList();
       } else if (isEndCollection) {
         toast.endCollection();
@@ -45,11 +46,12 @@ export function createGallery(
 
       if (!isEndCollection) loadMore.show();
 
-      smoothScroll && smoothScroll();
+      smoothScroll && !isCollectionEmpty && smoothScroll();
     } catch (error) {
+      console.log('err', error);
       toast.fetchError();
     } finally {
-      loader && loader.stop();
+      loader && loader.hide();
     }
   }
 
