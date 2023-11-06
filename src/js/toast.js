@@ -5,6 +5,8 @@ iziToast.settings({
   timeout: 4000,
   position: 'topRight',
   maxWidth: '400px',
+  titleSize: '16px',
+  messageSize: '16px',
 });
 
 const warning = message => {
