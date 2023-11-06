@@ -13,7 +13,7 @@ const lightbox = new SimpleLightbox('.gallery a', {
   showCounter: false,
 });
 
-const galleryIstance = createGallery(render, {
+const galleryInstance = createGallery(render, {
   limit: PER_PAGE,
   loader: createHideable(loaderRef),
   smoothScroll,
@@ -24,11 +24,11 @@ form.addEventListener('submit', e => {
   e.preventDefault();
   const query = e.target.elements.searchQuery.value.trim();
 
-  galleryIstance.setQuery(query);
+  galleryInstance.setQuery(query);
 });
 
 loadMoreBtn.addEventListener('click', () => {
-  galleryIstance.increasePage();
+  galleryInstance.increasePage();
 });
 
 //-------------------------------------------------Helpers
