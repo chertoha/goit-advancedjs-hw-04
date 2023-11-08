@@ -46,7 +46,7 @@ export function createGallery(
 
       if (!isEndCollection) loadMore.show();
 
-      smoothScroll && !isCollectionEmpty && smoothScroll();
+      smoothScroll && page !== 1 && !isCollectionEmpty && smoothScroll();
     } catch (error) {
       console.log('err', error);
       toast.fetchError();
